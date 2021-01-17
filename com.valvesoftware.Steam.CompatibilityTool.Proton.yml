@@ -49,8 +49,8 @@ x-compat-i386-opts: &compat_i386_opts
 x-proton-source: &proton_source
   type: git
   url: "https://github.com/ValveSoftware/Proton.git"
-  tag: proton-5.13-4
-  commit: 54ab99b94782d3b80b44929ccba546f75d9e6fc2
+  tag: proton-5.13-5
+  commit: 42e1584e719596ac4b46fcc6d0fd8f3872aab0e1
 
 cleanup:
   - "*.a"
@@ -394,10 +394,53 @@ modules:
     sources: *vrclient_sources
 
 
+  - name: wineopenxr
+    subdir: wineopenxr
+    build-options:
+      config-opts:
+        - -L${FLATPAK_DEST}/lib
+        - -L${FLATPAK_DEST}/lib/wine
+    config-opts: &wineopenxr_config_opts
+      - --nosource-fix
+      - --nolower-include
+      - --nodlls
+      - --nomsvcrt
+      - -I${FLATPAK_DEST}/include
+      - -I${FLATPAK_DEST}/include/wine
+      - -I${FLATPAK_DEST}/include/wine/windows
+      - -I../wine/include
+      - -lopenxr_loader
+      - -ldxgi
+      - -lvulkan
+      - --dll
+      - .
+    build-commands:
+      - winebuild --dll --fake-module -E wineopenxr.spec -o wineopenxr.dll.fake
+    no-make-install: true
+    post-install:
+      - install -Dm755 wineopenxr.dll.so -t ${FLATPAK_DEST}/lib/wine/
+      - install -Dm755 wineopenxr.dll.fake ${FLATPAK_DEST}/lib/wine/fakedlls/wineopenxr.dll
+    sources: &wineopenxr_sources
+      - *proton_source
+      - type: file
+        path: winemaker-configure.sh
+        dest: wineopenxr
+        dest-filename: configure
+    modules:
+
+      - name: openxr
+        subdir: OpenXR-SDK
+        buildsystem: cmake-ninja
+        sources:
+          - *proton_source
+
+
   - name: vkd3d-proton
     subdir: vkd3d-proton
     buildsystem: meson
     build-options:
+      ldflags: &mingw-ldflags ""
+      ldflags-override: true
       config-opts:
         - --cross-file=../build-win64.txt
         - --cross-file=../meson-ccache-mingw64.txt
@@ -422,6 +465,8 @@ modules:
     subdir: vkd3d-proton
     buildsystem: meson
     build-options:
+      ldflags: *mingw-ldflags
+      ldflags-override: true
       config-opts:
         - --cross-file=../build-win32.txt
         - --cross-file=../meson-ccache-mingw32.txt
@@ -437,6 +482,8 @@ modules:
     subdir: dxvk
     buildsystem: meson
     build-options: &dxvk_64_build_options
+      ldflags: *mingw-ldflags
+      ldflags-override: true
       config-opts:
         - --cross-file=../build-win64.txt
         - --cross-file=../meson-ccache-mingw64.txt
@@ -466,6 +513,8 @@ modules:
     subdir: dxvk
     buildsystem: meson
     build-options: &dxvk_32_build_options
+      ldflags: *mingw-ldflags
+      ldflags-override: true
       config-opts:
         - --cross-file=../build-win32.txt
         - --cross-file=../meson-ccache-mingw32.txt
@@ -512,6 +561,7 @@ modules:
     make-args:
       - fonts
     no-make-install: true
+    no-parallel-make: true
     post-install:
       - find obj-fonts/ -xtype f \( -name "*.otf" -o -name "*.ttf" \) -ls -exec install -Dm0644 -t ${FLATPAK_DEST}/share/fonts/ {} \;
     sources:
@@ -560,6 +610,10 @@ modules:
     build-commands:
       #FIXME unclever way to wait for all child procs
       - strace -e trace=none -f wine wineboot
+    post-install:
+      - install -Dm644 wineopenxr/wineopenxr64.json ${WINEPREFIX}/drive_c/openxr/wineopenxr64.json
+    sources:
+      - *proton_source
 
 
   - name: proton
