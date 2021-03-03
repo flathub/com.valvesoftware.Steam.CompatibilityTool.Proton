@@ -309,10 +309,13 @@ modules:
       - -I${FLATPAK_DEST}/include/wine
       - -I${FLATPAK_DEST}/include/wine/windows
       - -I../lsteamclient/steamworks_sdk_142
+      - -I../wine/include
+      - -I../openvr/headers
       - -L${FLATPAK_DEST}/lib32
       - -L${FLATPAK_DEST}/lib32/wine
       - -lsteam_api
       - -lole32
+      - -ldl
       - --guiexe
       - .
     make-args: *winemaker_m32_make_args
