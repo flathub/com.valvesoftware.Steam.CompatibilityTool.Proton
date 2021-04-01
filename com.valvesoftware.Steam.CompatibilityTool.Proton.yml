@@ -49,8 +49,8 @@ x-compat-i386-opts: &compat_i386_opts
 x-proton-source: &proton_source
   type: git
   url: "https://github.com/ValveSoftware/Proton.git"
-  tag: proton-5.13-6
-  commit: 7c91f57ec93b1ebf07799651b993e01b88ce30b8
+  tag: proton-6.3-1
+  commit: 5d57ef328f72d9a1b56d192233b31f16473e5ad1
 
 cleanup:
   - "*.a"
@@ -159,10 +159,6 @@ modules:
       - INSTALL_PROGRAM_FLAGS=-s
     sources: &wine_sources
       - *proton_source
-      - type: patch
-        dest: wine
-        paths:
-          - patches/wine/seccomp-external-filter.patch
 
   - name: wine-32bit
     subdir: wine
@@ -198,9 +194,6 @@ modules:
       - install -Dm755 -t ${FLATPAK_DEST}/$LIBDIR/gstreamer-1.0 target/${RUST_TARGET}/release/libprotonmediaconverter.so
     sources: &media_converter_sources
       - *proton_source
-      - type: file
-        path: files/media-converter/Cargo.lock
-        dest: media-converter
       - type: file
         path: files/media-converter/config.toml
         dest: media-converter/.cargo
@@ -548,11 +541,11 @@ modules:
     buildsystem: simple
     build-commands:
       - mkdir -p ${FLATPAK_DEST}/share/wine/mono
-      - cp -a . ${FLATPAK_DEST}/share/wine/mono/wine-mono-5.1.1
+      - cp -a . ${FLATPAK_DEST}/share/wine/mono/wine-mono-6.1.1
     sources:
       - type: archive
-        url: "https://github.com/madewokherd/wine-mono/releases/download/wine-mono-5.1.1/wine-mono-5.1.1-x86.tar.xz"
-        sha256: b17ac815afbf5eef768c4e8d50800be02af75c8b230d668e239bad99616caa82
+        url: "https://github.com/madewokherd/wine-mono/releases/download/wine-mono-6.1.1/wine-mono-6.1.1-x86.tar.xz"
+        sha256: c3bab46c3e69ecdda61532c28c6a94a78aef9c750cc18dbb60151e0697714d6d
 
 
   - name: wine-gecko-bin
@@ -560,16 +553,16 @@ modules:
     build-commands:
       - mkdir -p ${FLATPAK_DEST}/share/wine/gecko
       - |
-        for a in wine-gecko-*-x86{,_64}.tar.bz2; do
+        for a in wine-gecko-*-x86{,_64}.tar.xz; do
           tar -xf "$a" -C ${FLATPAK_DEST}/share/wine/gecko/
         done
     sources:
       - type: file
-        url: "https://dl.winehq.org/wine/wine-gecko/2.47.1/wine-gecko-2.47.1-x86.tar.bz2"
-        sha256: 06a00cedf391ee07bbca0b3282e5c8ad9d950446d50648d2ff417716816fd1ab
+        url: "https://dl.winehq.org/wine/wine-gecko/2.47.2/wine-gecko-2.47.2-x86.tar.xz"
+        sha256: 8fab46ea2110b2b0beed414e3ebb4e038a3da04900e7a28492ca3c3ccf9fea94
       - type: file
-        url: "https://dl.winehq.org/wine/wine-gecko/2.47.1/wine-gecko-2.47.1-x86_64.tar.bz2"
-        sha256: ea5246e4c91d1aa1226658e1749b6e5d0e9353b52b14df79c4b93b6e61a3c59e
+        url: "https://dl.winehq.org/wine/wine-gecko/2.47.2/wine-gecko-2.47.2-x86_64.tar.xz"
+        sha256: b4476706a4c3f23461da98bed34f355ff623c5d2bb2da1e2fa0c6a310bc33014
 
 
   - name: fonts
