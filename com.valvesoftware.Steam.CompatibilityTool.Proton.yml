@@ -222,9 +222,12 @@ modules:
       - .
     make-args:
       - LIBRARIES=-ldl
+    build-commands:
+      - winebuild --dll --fake-module -E lsteamclient.spec -o lsteamclient.dll.fake
     no-make-install: true
     post-install:
-      - install -Dm755 lsteamclient.dll.so -t ${FLATPAK_DEST}/lib/wine/
+      - install -Dm755 lsteamclient.dll.so ${FLATPAK_DEST}/lib/wine/lsteamclient.dll.so
+      - install -Dm755 lsteamclient.dll.fake ${FLATPAK_DEST}/lib/wine/fakedlls/lsteamclient.dll
     sources: &lsteamclient_sources
       - *proton_source
       - type: file
@@ -250,9 +253,12 @@ modules:
     config-opts: *lsteamclient_config_opts
     make-args:
       - LIBRARIES=-ldl
+    build-commands:
+      - winebuild --dll --fake-module -E lsteamclient.spec -o lsteamclient.dll.fake
     no-make-install: true
     post-install:
-      - install -Dm755 lsteamclient.dll.so -t ${FLATPAK_DEST}/lib32/wine/
+      - install -Dm755 lsteamclient.dll.so ${FLATPAK_DEST}/lib32/wine/lsteamclient.dll.so
+      - install -Dm755 lsteamclient.dll.fake ${FLATPAK_DEST}/lib32/wine/fakedlls/lsteamclient.dll
     sources: *lsteamclient_sources
 
 
@@ -296,9 +302,12 @@ modules:
       - --guiexe
       - .
     make-args: *winemaker_m32_make_args
+    build-commands:
+      - winebuild --exe --fake-module -F steam -o steam.exe.fake
     no-make-install: true
     post-install:
       - install -Dm755 steam_helper.exe.so ${FLATPAK_DEST}/lib32/wine/steam.exe.so
+      - install -Dm755 steam.exe.fake ${FLATPAK_DEST}/lib32/wine/fakedlls/steam.exe
     sources:
       - *proton_source
       - type: file
