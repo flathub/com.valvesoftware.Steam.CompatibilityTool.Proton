@@ -315,6 +315,8 @@ modules:
       - -I${FLATPAK_DEST}/include
       - -I${FLATPAK_DEST}/include/wine
       - -I${FLATPAK_DEST}/include/wine/windows
+      - -I../../wine/include
+      - -I../../wine/include/wine
       - -I.
       - -I..
       - --dll
