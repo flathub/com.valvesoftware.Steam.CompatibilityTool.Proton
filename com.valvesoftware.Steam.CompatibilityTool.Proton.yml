@@ -2,7 +2,7 @@ id: com.valvesoftware.Steam.CompatibilityTool.Proton
 default-branch: stable
 runtime: com.valvesoftware.Steam
 runtime-version: stable
-sdk: org.freedesktop.Sdk//20.08
+sdk: org.freedesktop.Sdk//21.08
 build-extension: true
 appstream-compose: false
 
@@ -24,7 +24,7 @@ build-options:
                      :/usr/lib/x86_64-linux-gnu/pkgconfig\
                      :/usr/share/pkgconfig"
     LD_RUN_PATH: /app/share/steam/compatibilitytools.d/Proton/lib
-    PYTHONPATH: /app/share/steam/compatibilitytools.d/Proton/lib/python3.8/site-packages
+    PYTHONPATH: /app/share/steam/compatibilitytools.d/Proton/lib/python3.9/site-packages
   cflags: &optflags -O2 -pipe -march=nocona -mtune=core-avx2 -mfpmath=sse -fwrapv -fno-strict-aliasing
   cflags-override: true
   cxxflags: *optflags
