@@ -50,6 +50,13 @@ x-proton-source: &proton_source
   url: "https://github.com/ValveSoftware/Proton.git"
   tag: proton-6.3-6b
   commit: b5646c407277c5ff4e01be724f8c420ebcf8422c
+  x-checker-data:
+    type: json
+    url: https://api.github.com/repos/ValveSoftware/Proton/releases/latest
+    tag-query: .tag_name
+    version-query: $tag | sub("^proton-"; "")
+    timestamp-query: .published_at
+    is-main-source: true
 
 cleanup:
   - "*.a"
@@ -671,10 +678,6 @@ modules:
           -e "s/@VERSION@/${PROTON_VERSION}/g" \
           -e "s/@BUILD@/${TIMESTAMP}/g" \
           -i ${FLATPAK_DEST}/compatibilitytool.vdf
-        sed \
-          -e "s/@VERSION@/${PROTON_VERSION}/g" \
-          -e "s/@DATE@/${PROTON_DATE}/g" \
-          -i ${FLATPAK_ID}.metainfo.xml
       - |
         cd ${FLATPAK_DEST}
         mkdir dist
