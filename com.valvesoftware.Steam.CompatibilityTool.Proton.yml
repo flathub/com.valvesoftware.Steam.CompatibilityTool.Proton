@@ -45,10 +45,21 @@ x-proton-source: &proton_source
   commit: 5536e50175b478e8f0b1fdf77a0679ba6720aaa7
   x-checker-data:
     type: json
-    url: https://api.github.com/repos/ValveSoftware/Proton/releases/latest
-    tag-query: .tag_name
-    version-query: $tag | sub("^proton-"; "")
-    timestamp-query: .published_at
+    url: https://api.github.com/repos/ValveSoftware/Proton/git/refs/tags/proton-
+    tag-query: >-
+      map(select(.ref | match("refs/tags/proton-[0-9].*"; ""))) | last |
+      if .object.type=="commit" then . else error("not a commit") end |
+      .ref | sub("^refs/tags/"; "")
+    version-query: >-
+      $tag | sub("^proton-"; "")
+    commit-query: >-
+      map(select(.ref | match("refs/tags/proton-[0-9].*"; ""))) | last |
+      .object.sha
+    timestamp-data-url: >-
+      map(select(.ref | match("refs/tags/proton-[0-9].*"; ""))) | last |
+      .object.url
+    timestamp-query: >-
+      .committer.date
     is-main-source: true
 
 cleanup:
