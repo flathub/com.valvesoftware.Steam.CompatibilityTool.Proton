@@ -41,8 +41,8 @@ x-compat-i386-opts: &compat_i386_opts
 x-proton-source: &proton_source
   type: git
   url: https://github.com/ValveSoftware/Proton.git
-  tag: proton-6.3-8-rc3
-  commit: de47362fde8448404fea798f11a35cf64ae24482
+  tag: proton-6.3-8-rc4
+  commit: d1184e298f122fedd4b8c6d51e8ef17e9216a390
   x-checker-data:
     type: json
     url: https://api.github.com/repos/ValveSoftware/Proton/git/refs/tags/proton-
@@ -312,7 +312,7 @@ modules:
       - -ldl
       - --guiexe
       - .
-    build-commands: &steam_helper-build-commands
+    build-commands:
       - winebuild --exe --fake-module -F steam -o steam.exe.fake
     no-make-install: true
     post-install:
