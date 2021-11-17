@@ -41,8 +41,8 @@ x-compat-i386-opts: &compat_i386_opts
 x-proton-source: &proton_source
   type: git
   url: https://github.com/ValveSoftware/Proton.git
-  tag: proton-6.3-8-rc4
-  commit: d1184e298f122fedd4b8c6d51e8ef17e9216a390
+  tag: proton-6.3-8-rc5
+  commit: 4d543391f584a3da4cf14ba81f3f74040cdd3fda
   x-checker-data:
     type: json
     url: https://api.github.com/repos/ValveSoftware/Proton/git/refs/tags/proton-
