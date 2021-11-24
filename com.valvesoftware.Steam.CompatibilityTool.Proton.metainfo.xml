@@ -15,14 +15,6 @@
   <metadata_license>CC0-1.0</metadata_license>
   <releases>
     <release version="6.3-8" date="2021-11-22"/>
-    <release version="6.3-8-rc10" date="2021-11-23"/>
-    <release version="6.3-8-rc9" date="2021-11-22"/>
-    <release version="6.3-8-rc8" date="2021-11-22"/>
-    <release version="6.3-8-rc7" date="2021-11-19"/>
-    <release version="6.3-8-rc6" date="2021-11-18"/>
-    <release version="6.3-8-rc5" date="2021-11-17"/>
-    <release version="6.3-8-rc4" date="2021-11-15"/>
-    <release version="6.3-8-rc3" date="2021-11-12"/>
     <release version="6.3-7" date="2021-10-01"/>
     <release version="6.3-6b" date="2021-08-21"/>
   </releases>
