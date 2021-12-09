@@ -41,14 +41,25 @@ x-compat-i386-opts: &compat_i386_opts
 x-proton-source: &proton_source
   type: git
   url: https://github.com/ValveSoftware/Proton.git
-  tag: proton-6.3-7
-  commit: 5536e50175b478e8f0b1fdf77a0679ba6720aaa7
+  tag: proton-6.3-8
+  commit: 50b4c8785f389f0840bfc6a9ee3f233c9de2da48
   x-checker-data:
     type: json
-    url: https://api.github.com/repos/ValveSoftware/Proton/releases/latest
-    tag-query: .tag_name
-    version-query: $tag | sub("^proton-"; "")
-    timestamp-query: .published_at
+    url: https://api.github.com/repos/ValveSoftware/Proton/git/refs/tags/proton-
+    tag-query: >-
+      map(select(.ref | match("refs/tags/proton-[0-9].*"; ""))) | last |
+      if .object.type=="commit" then . else error("not a commit") end |
+      .ref | sub("^refs/tags/"; "")
+    version-query: >-
+      $tag | sub("^proton-"; "")
+    commit-query: >-
+      map(select(.ref | match("refs/tags/proton-[0-9].*"; ""))) | last |
+      .object.sha
+    timestamp-data-url: >-
+      map(select(.ref | match("refs/tags/proton-[0-9].*"; ""))) | last |
+      .object.url
+    timestamp-query: >-
+      .committer.date
     is-main-source: true
 
 cleanup:
@@ -127,6 +138,20 @@ modules:
     config-opts: *jxrlib-config-opts
     cleanup:
       - /bin
+    sources:
+      - *proton_source
+
+
+  - name: Vulkan-Headers
+    subdir: Vulkan-Headers
+    buildsystem: cmake-ninja
+    sources:
+      - *proton_source
+
+
+  - name: SPIRV-Headers
+    subdir: SPIRV-Headers
+    buildsystem: cmake-ninja
     sources:
       - *proton_source
 
@@ -211,9 +236,12 @@ modules:
       - .
     make-args:
       - LIBRARIES=-ldl
+    build-commands:
+      - winebuild --dll --fake-module -E lsteamclient.spec -o lsteamclient.dll.fake
     no-make-install: true
     post-install:
-      - install -Dm755 lsteamclient.dll.so -t ${FLATPAK_DEST}/lib/wine/
+      - install -Dm755 lsteamclient.dll.so ${FLATPAK_DEST}/lib/wine/lsteamclient.dll.so
+      - install -Dm755 lsteamclient.dll.fake ${FLATPAK_DEST}/lib/wine/fakedlls/lsteamclient.dll
     sources: &lsteamclient_sources
       - *proton_source
       - type: file
@@ -239,13 +267,16 @@ modules:
     config-opts: *lsteamclient_config_opts
     make-args:
       - LIBRARIES=-ldl
+    build-commands:
+      - winebuild --dll --fake-module -E lsteamclient.spec -o lsteamclient.dll.fake
     no-make-install: true
     post-install:
-      - install -Dm755 lsteamclient.dll.so -t ${FLATPAK_DEST}/lib32/wine/
+      - install -Dm755 lsteamclient.dll.so ${FLATPAK_DEST}/lib32/wine/lsteamclient.dll.so
+      - install -Dm755 lsteamclient.dll.fake ${FLATPAK_DEST}/lib32/wine/fakedlls/lsteamclient.dll
     sources: *lsteamclient_sources
 
 
-  - name: libsteam_api-bin-32bit
+  - name: libsteam_api-bin
     #WARNING proprietary
     build-options:
       strip: false
@@ -253,10 +284,46 @@ modules:
     subdir: steam_helper
     buildsystem: simple
     build-commands:
-      - install -Dm755 libsteam_api.so -t ${FLATPAK_DEST}/lib32/
+      - install -Dm755 64/libsteam_api.so -t ${FLATPAK_DEST}/lib/
+      - install -Dm755 32/libsteam_api.so -t ${FLATPAK_DEST}/lib32/
     sources:
       - *proton_source
 
+
+  - name: steam_helper
+    subdir: steam_helper
+    build-options:
+      config-opts:
+        - -L${FLATPAK_DEST}/lib
+        - -L${FLATPAK_DEST}/lib/wine
+    config-opts: &steam_helper-config-opts
+      - --nosource-fix
+      - --nolower-include
+      - --nodlls
+      - --nomsvcrt
+      - -I${FLATPAK_DEST}/include
+      - -I${FLATPAK_DEST}/include/wine
+      - -I${FLATPAK_DEST}/include/wine/windows
+      - -I../lsteamclient/steamworks_sdk_142
+      - -I../wine/include
+      - -I../openvr/headers
+      - -lsteam_api
+      - -lole32
+      - -ldl
+      - --guiexe
+      - .
+    build-commands:
+      - winebuild --exe --fake-module -F steam -o steam.exe.fake
+    no-make-install: true
+    post-install:
+      - install -Dm755 steam_helper.exe.so ${FLATPAK_DEST}/lib/wine/steam.exe.so
+      - install -Dm755 steam.exe.fake ${FLATPAK_DEST}/lib/wine/fakedlls/steam.exe
+    sources: &steam_helper-sources
+      - *proton_source
+      - type: file
+        path: winemaker-configure.sh
+        dest: steam_helper
+        dest-filename: configure
 
   - name: steam_helper-32bit
     subdir: steam_helper
@@ -265,35 +332,19 @@ modules:
     build-options:
       arch:
         x86_64: *compat_i386_opts
-    config-opts:
-      - --nosource-fix
-      - --nolower-include
-      - --nodlls
-      - --nomsvcrt
-      - --wine32
-      - -I${FLATPAK_DEST}/include
-      - -I${FLATPAK_DEST}/include/wine
-      - -I${FLATPAK_DEST}/include/wine/windows
-      - -I../lsteamclient/steamworks_sdk_142
-      - -I../wine/include
-      - -I../openvr/headers
-      - -L${FLATPAK_DEST}/lib32
-      - -L${FLATPAK_DEST}/lib32/wine
-      - -lsteam_api
-      - -lole32
-      - -ldl
-      - --guiexe
-      - .
-    make-args: *winemaker_m32_make_args
+      config-opts:
+        - -L${FLATPAK_DEST}/lib32
+        - -L${FLATPAK_DEST}/lib32/wine
+        - --wine32
+      make-args: *winemaker_m32_make_args
+    config-opts: *steam_helper-config-opts
+    build-commands:
+      - winebuild --exe --fake-module -F steam -o steam.exe.fake
     no-make-install: true
     post-install:
       - install -Dm755 steam_helper.exe.so ${FLATPAK_DEST}/lib32/wine/steam.exe.so
-    sources:
-      - *proton_source
-      - type: file
-        path: winemaker-configure.sh
-        dest: steam_helper
-        dest-filename: configure
+      - install -Dm755 steam.exe.fake ${FLATPAK_DEST}/lib32/wine/fakedlls/steam.exe
+    sources: *steam_helper-sources
 
 
   - name: openvr
@@ -417,6 +468,56 @@ modules:
       - type: archive
         url: https://github.com/KhronosGroup/glslang/archive/refs/tags/11.2.0.tar.gz
         sha256: 8ff2fcf9b054e4a4ef56fcd8a637322f827b2b176a592a618d63672ddb896e06
+
+
+  - name: vkd3d
+    subdir: vkd3d
+    build-options:
+      ldflags: >-
+        -L/run/build/vkd3d/wine/dlls/vulkan-1
+      ldflags-override: true
+      config-opts:
+        - --host=x86_64-w64-mingw32
+      env:
+        CC: ccache x86_64-w64-mingw32-gcc
+        LD: x86_64-w64-mingw32-ld
+        LIBDIR_WINE_PE: /app/share/steam/compatibilitytools.d/Proton/lib/wine
+      prefix: /app/share/steam/compatibilitytools.d/Proton/lib/vkd3d/prefix
+    config-opts: &vkd3d-config-opts
+      - --disable-doxygen-doc
+      - --disable-tests
+      - --disable-demos
+      - --without-ncurses
+    post-install:
+      - mv -v ${FLATPAK_DEST}/lib/vkd3d/{prefix/bin/,}libvkd3d-shader-1.dll
+    sources: &vkd3d-sources
+      - *proton_source
+      - type: shell
+        commands:
+          - install -D $LIBDIR_WINE_PE/vulkan-1.dll -t wine/dlls/vulkan-1/
+    cleanup:
+      - /lib/vkd3d/prefix
+
+
+  - name: vkd3d-32bit
+    subdir: vkd3d
+    build-options:
+      ldflags: >-
+        -L/run/build/vkd3d-32bit/wine/dlls/vulkan-1
+      ldflags-override: true
+      config-opts:
+        - --host=i686-w64-mingw32
+      env:
+        CC: ccache i686-w64-mingw32-gcc
+        LD: i686-w64-mingw32-ld
+        LIBDIR_WINE_PE: /app/share/steam/compatibilitytools.d/Proton/lib32/wine
+      prefix: /app/share/steam/compatibilitytools.d/Proton/lib32/vkd3d/prefix
+    config-opts: *vkd3d-config-opts
+    post-install:
+      - mv -v ${FLATPAK_DEST}/lib32/vkd3d/{prefix/bin/,}libvkd3d-shader-1.dll
+    sources: *vkd3d-sources
+    cleanup:
+      - /lib32/vkd3d/prefix
 
 
   - name: vkd3d-proton
@@ -566,8 +667,8 @@ modules:
       - cp -a wine-mono-*/ ${FLATPAK_DEST}/share/wine/mono/
     sources:
       - type: archive
-        url: https://github.com/madewokherd/wine-mono/releases/download/wine-mono-6.3.0/wine-mono-6.3.0-x86.tar.xz
-        sha256: eb67426ff60ed6395b70437e838883ee08b6189cad84faf036b1a4d7366a34e2
+        url: https://github.com/madewokherd/wine-mono/releases/download/wine-mono-6.4.1/wine-mono-6.4.1-x86.tar.xz
+        sha256: a70c865e590058fa6fc3aa47425646405bdda27f78b9aa6d2030d2d2a8efadbb
         strip-components: 0
 
 
