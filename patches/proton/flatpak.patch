@@ -1,8 +1,8 @@
 diff --git a/proton b/proton
-index 35ca1ee..8a5fa16 100755
+index bc9b8d4..d3f62d6 100755
 --- a/proton
 +++ b/proton
-@@ -280,60 +280,22 @@ def set_dir_casefold_bit(dir_path):
+@@ -322,61 +322,23 @@ def set_dir_casefold_bit(dir_path):
  class Proton:
      def __init__(self, base_dir):
          self.base_dir = base_dir + "/"
@@ -12,12 +12,14 @@ index 35ca1ee..8a5fa16 100755
 -        self.lib64_dir = self.path("dist/lib64/")
 -        self.fonts_dir = self.path("dist/share/fonts/")
 -        self.wine_fonts_dir = self.path("dist/share/wine/fonts/")
+-        self.wine_inf = self.path("dist/share/wine/wine.inf")
 +        self.dist_dir = self.base_dir
 +        self.bin_dir = self.path("bin/")
 +        self.lib_dir = self.path("lib32/")
 +        self.lib64_dir = self.path("lib/")
 +        self.fonts_dir = self.path("share/fonts/")
 +        self.wine_fonts_dir = self.path("share/wine/fonts/")
++        self.wine_inf = self.path("share/wine/wine.inf")
          self.version_file = self.path("version")
 -        self.default_pfx_dir = self.path("dist/share/default_pfx/")
 +        self.default_pfx_dir = self.path("share/default_pfx/")
@@ -70,7 +72,7 @@ index 35ca1ee..8a5fa16 100755
  class CompatData:
      def __init__(self, compatdata):
          self.base_dir = compatdata + "/"
-@@ -1271,18 +1233,12 @@ if __name__ == "__main__":
+@@ -1350,18 +1312,12 @@ if __name__ == "__main__":
  
      g_proton = Proton(os.path.dirname(sys.argv[0]))
  
