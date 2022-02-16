@@ -183,11 +183,6 @@ modules:
       - INSTALL_PROGRAM_FLAGS=-s
     sources: &wine_sources
       - *proton_source
-      - type: patch
-        paths:
-          # https://www.mail-archive.com/mingw-w64-public@lists.sourceforge.net/msg18719.html
-          - patches/wine/0001-msvcrt-Add-sincos-to-importlib.patch
-        dest: wine
       - type: shell
         dest: wine
         commands:
