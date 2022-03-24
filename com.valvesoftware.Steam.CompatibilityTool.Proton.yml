@@ -670,6 +670,16 @@ modules:
       - files/afdko/python3-requirements-dev.json
       - files/afdko/python3-requirements.json
 
+      - name: afdko-script
+        buildsystem: simple
+        build-commands:
+          - install -Dm755 -t ${FLATPAK_DEST}/bin afdko
+        sources:
+          - type: script
+            dest-filename: afdko
+            commands:
+              - exec "$@"
+
 
   - name: default-prefix
     build-options:

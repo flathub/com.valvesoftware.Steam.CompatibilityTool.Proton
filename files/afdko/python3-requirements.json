@@ -2,38 +2,63 @@
     "name": "python3-afdko",
     "buildsystem": "simple",
     "build-commands": [
-        "pip3 install --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"afdko==3.5.1\" --no-build-isolation"
+        "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"afdko<3.7\" --no-build-isolation"
     ],
     "sources": [
         {
             "type": "file",
-            "url": "https://files.pythonhosted.org/packages/09/07/448a8887c7195450604dfc0305d80d74324c36ee18ed997664051d4bffe3/pytz-2020.4.tar.gz",
-            "sha256": "3e6b7dd2d1e0a59084bcee14a17af60c5c562cdc16d828e8eba2e683d3a7e268"
+            "url": "https://files.pythonhosted.org/packages/60/2e/dec1cc18c51b8df33c7c4d0a321b084cf38e1733b98f9d15018880fb4970/pytz-2022.1-py2.py3-none-any.whl",
+            "sha256": "e68985985296d9a66a881eb3193b0906246245294a881e7c8afe623866ac6a5c"
         },
         {
             "type": "file",
-            "url": "https://files.pythonhosted.org/packages/d7/d8/05696357e0311f5b5c316d7b95f46c669dd9c15aaeecbb48c7d0aeb88c40/appdirs-1.4.4.tar.gz",
-            "sha256": "7d5d0167b2b1ba821647616af46a749d1c653740dd0d2415100fe26e27afdf41"
+            "url": "https://files.pythonhosted.org/packages/3b/00/2344469e2084fb287c2e0b57b72910309874c3245463acd6cf5e3db69324/appdirs-1.4.4-py2.py3-none-any.whl",
+            "sha256": "a841dacd6b99318a741b166adb07e19ee71a274450e68237b4650ca1055ab128"
         },
         {
             "type": "file",
-            "url": "https://files.pythonhosted.org/packages/b9/40/32cf94580974faf1635d8deca663b8e00492fe9e170e4d54e1d780a723e8/pyclipper-1.2.0.zip",
-            "sha256": "7a9035ca6732dcef3ef33f98d9a844bb5f2be16bd659300c38ef366aac2e3a47"
+            "url": "https://files.pythonhosted.org/packages/91/25/ba6f370e18359292f05ca4df93642eb7d1c424721ef61f61b8610a63d0c5/zopfli-0.2.1.zip",
+            "sha256": "e5263d2806e2c1ccb23f52b2972a235d31d42f22f3fa3032cc9aded51e9bf2c6"
         },
         {
             "type": "file",
-            "url": "https://files.pythonhosted.org/packages/5f/a4/366a8a5af55f5189d8401462b2a715cef3388f6daeac8541ee5156e112ad/fontParts-0.9.6.zip",
-            "sha256": "3fed62d7390735fcfe58fa75f559886b5bed2c4c06dbd045645ad5eb03a31161"
+            "url": "https://files.pythonhosted.org/packages/e8/10/85680b43276df4c485f1f14598681d8fd654aebd52872a8be405607cabaa/unicodedata2-14.0.0.tar.gz",
+            "sha256": "41f7df0043f4450e84203d907a56cdd2a0a0541a9eebbaba48576b01e0b61684"
         },
         {
             "type": "file",
-            "url": "https://files.pythonhosted.org/packages/e8/25/ad6b67e7c1e00798ceac95f0cb3abfb82f83f6373e553caf4976855c534f/fontPens-0.2.4.zip",
-            "sha256": "a6d9a14573b3450f3313d69523f9006028c21fc7aef5d35333b87aab7f2b41fd"
+            "url": "https://files.pythonhosted.org/packages/c0/20/7e6f631db2ba598ebaa6afd05188aa1557f6ff9af3f47fd963e0bd7ed79b/pyclipper-1.3.0.post2.tar.gz",
+            "sha256": "c096703dc32f2e4700a1f7054e8b58c29fe86212fa7a2c2adecb0102cb639fb2"
         },
         {
             "type": "file",
-            "url": "https://files.pythonhosted.org/packages/bf/c9/2a1a5a013b86649f08e3a0de7eca66b98b35559f67cbe4d3b057aa4f2cad/zopfli-0.1.7.zip",
-            "sha256": "512892714f0e3dcc9a77222cb509ed519f41ce2b92467e47a4b406a23b48561a"
+            "url": "https://files.pythonhosted.org/packages/04/38/13517a82da4543f5ea1ec1d6a35a302af12d35ec6bea3746d5f451e0dd0f/defcon-0.10.0-py3-none-any.whl",
+            "sha256": "4f5e5ee4dde51a43f3bddd5ef7909a9e75faf0ef572f4292c7df6fdc7afe3584"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/02/61/e3e6190a8d94c6a99d9605c721e1e38ebae19dc194059477affa57f6e111/MutatorMath-3.0.1-py2.py3-none-any.whl",
+            "sha256": "949dc3c1ea71c3b8a88cdeec6b3224b039d9da3888af133eb7e09ce1d5b19821"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/db/77/05be776c560a6cc9d89474782d7c3f6c86ee7cb61d15022436b5963d52cb/fs-2.4.15-py2.py3-none-any.whl",
+            "sha256": "86fbd7268edc365e5f120c4871addf2a0a899049625c35fe579910339296d13d"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/b0/5c/5dd502b0e2e0cb2980fc4ed17e970089003e377115abf79b1918097f4996/fonttools-4.31.2-py3-none-any.whl",
+            "sha256": "2df636a3f402ef14593c6811dac0609563b8c374bd7850e76919eb51ea205426"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/ba/9d/d084c2760c735e8f81c2a3c9e0d403cfacb811daf5166fbaa353e6d647c5/fontPens-0.2.4-py2.py3-none-any.whl",
+            "sha256": "cdef727e49b54ac6228f8fa087ee539258f7b0a6f0accb63cbf31d4bfc437ce7"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/68/b2/984d339d02c9ec56632e2095f5630e5259764ca67d7e55d4dd4e0989f491/fontParts-0.10.4-py3-none-any.whl",
+            "sha256": "abe366502c9b65eb7e75a060b2b966ca01cd229190feb14d2f0e76144ac692d9"
         },
         {
             "type": "file",
@@ -42,68 +67,43 @@
         },
         {
             "type": "file",
-            "url": "https://files.pythonhosted.org/packages/b8/db/a5d9a7649c2eb2681c30850617b83e1295c3a5bebcdb05908e1da11ed8b7/unicodedata2-13.0.0.post2.tar.gz",
-            "sha256": "a83e504fb0e8ed4757194e61c3f7b69fb3c914856057bea968d0950f80f947fa"
+            "url": "https://files.pythonhosted.org/packages/47/66/8ce437915371d6813339d236d8beb6cbef601d125e94d7c09bfa0f6dd5c6/ufoProcessor-1.9.0-py2.py3-none-any.whl",
+            "sha256": "0b77d4055306872d5df662feec6d066bdd34fc304c5a6c5999d2bcfd1720e637"
         },
         {
             "type": "file",
-            "url": "https://files.pythonhosted.org/packages/1d/a1/8813629b38a8d97e8f1eceb6c7da03b37633c93104fbd8e30e09d195425a/fs-2.4.11.tar.gz",
-            "sha256": "cc99d476b500f993df8ef697b96dc70928ca2946a455c396a566efe021126767"
+            "url": "https://files.pythonhosted.org/packages/41/cd/b342982ab4b0bd4ce865b286abc2a058e65203ec5df77cf79b45fb3efc95/ufonormalizer-0.6.1-py3-none-any.whl",
+            "sha256": "7a93d903391a7867e99754a037a571e16b0459fd75a44418b8d0187307d846d8"
         },
         {
             "type": "file",
-            "url": "https://files.pythonhosted.org/packages/57/d9/9eae7bc4ba3a38ab7426522fb08e12df54aec27595d7bcd1bc0670aec873/booleanOperations-0.9.0.zip",
-            "sha256": "8cfa821c32ad374fa120d6b2e0b444ebeac57c91e6631528645fa19ac2a281b8"
+            "url": "https://files.pythonhosted.org/packages/a6/73/7780b2c0868bdce1f13ce27b09b239f0eefc975a5c7ebc82a7613b2a2f05/tqdm-4.63.1-py2.py3-none-any.whl",
+            "sha256": "6461b009d6792008d0000e1b0c7ca50195ec78c0e808a3a6b668a56a3236c3a5"
         },
         {
             "type": "file",
-            "url": "https://files.pythonhosted.org/packages/2f/3c/7cc72dc22fcc5af362a15f7d8c04e6cfda6f730cacbbf8ba811bdda8e6a8/ufonormalizer-0.4.2.zip",
-            "sha256": "f2739eaa8df3cd4e60894b22679a882505252b93f12657a0993894108122c6e6"
+            "url": "https://files.pythonhosted.org/packages/91/74/014da6e9280844cec6a73a04e069d95740e5520fd9477afbf31208d0e2f4/psautohint-2.4.0.tar.gz",
+            "sha256": "d50edea8f6121c3383f0d82f881bf7a18bdd476cc2d354737672ce193c3cff7f"
         },
         {
             "type": "file",
-            "url": "https://files.pythonhosted.org/packages/44/02/d1ddbbc5698db8ad2a0d1f8a23d52305e66166b6fea5ada5e146dd3a709a/MutatorMath-3.0.1.zip",
-            "sha256": "8127c1ffad1646f11a953752296c43f5d88cbd5293fff03f093d916b0bc13864"
+            "url": "https://files.pythonhosted.org/packages/3b/94/e2b1b3bad91d15526c7e38918795883cee18b93f6785ea8ecf13f8ffa01e/lxml-4.8.0.tar.gz",
+            "sha256": "f63f62fc60e6228a4ca9abae28228f35e1bd3ce675013d1dfb828688d50c6e23"
         },
         {
             "type": "file",
-            "url": "https://files.pythonhosted.org/packages/3a/76/467422c5a0157c92a8b8e1ffe14411443682e2951e6f6dde3748e47b31ba/tqdm-4.54.0.tar.gz",
-            "sha256": "5c0d04e06ccc0da1bd3fa5ae4550effcce42fcad947b4a6cafa77bdc9b09ff22"
+            "url": "https://files.pythonhosted.org/packages/ac/02/771713d2510763aef89f6d49d04342f5199c27e049735e52dd07c9d2d6de/fontMath-0.9.1-py2.py3-none-any.whl",
+            "sha256": "df05fe830661a8e4e66a5b773f748a734b9bcde17e7dd620f98faacd7d014bf3"
         },
         {
             "type": "file",
-            "url": "https://files.pythonhosted.org/packages/b0/d6/a2b248adc2f26a97752bec3719bd5d33a788890b5546bff0839baeba1b4e/ufoProcessor-1.9.0.zip",
-            "sha256": "baa8bd9bbbb11ce004647eb1906105f4d5bfdbc1b3388ca4d36fab57950a415b"
+            "url": "https://files.pythonhosted.org/packages/fc/c6/c4cae54f482465a33c5f011d95ec64293dce9e012dac7873147c2dc85396/booleanOperations-0.9.0-py3-none-any.whl",
+            "sha256": "86c291c2fba9faedff6f007c932d7f242dd9b4304e9c6ca8149f864d07877a59"
         },
         {
             "type": "file",
-            "url": "https://files.pythonhosted.org/packages/db/f7/43fecb94d66959c1e23aa53d6161231dca0e93ec500224cf31b3c4073e37/lxml-4.6.2.tar.gz",
-            "sha256": "cd11c7e8d21af997ee8079037fff88f16fda188a9776eb4b81c7e4c9c0a7d7fc"
-        },
-        {
-            "type": "file",
-            "url": "https://files.pythonhosted.org/packages/df/2c/4b4e3739eefb2a2d176ef42a45544e87f710cfcc164d4d9eb315616f7d49/defcon-0.7.2.zip",
-            "sha256": "1967eaa23dcc8e1cbe3bd130aae4d9ddb72027b62d3e23eeb640065cfbd6d8d1"
-        },
-        {
-            "type": "file",
-            "url": "https://files.pythonhosted.org/packages/b6/37/d10ae4fd2252162de1b4b4e098aaebc432fab2392d01fc81adf8ff90a2fd/psautohint-2.1.2.zip",
-            "sha256": "fb5761ad7e3fa6adf0266ea8b50de6afd04e95fdef32fa4e70a318889e3bbf44"
-        },
-        {
-            "type": "file",
-            "url": "https://files.pythonhosted.org/packages/80/0a/157b28f0cebebe1aba875eee92b4249785655bf3f8f5628fc23fba1f5861/fonttools-4.17.1.zip",
-            "sha256": "7097b194babc05c8decfff6cbc81b184221fdcfbda568630fe441c63dadb3ab4"
-        },
-        {
-            "type": "file",
-            "url": "https://files.pythonhosted.org/packages/3e/08/1df5987085c63f1d87376c811baab7f6466ee2695d5e9f131898bafccacb/fontMath-0.6.0.zip",
-            "sha256": "5a93002bfdcacd16b117b498f6e5ffa5d8fd263ccd8c587d9aa553e965c3ad27"
-        },
-        {
-            "type": "file",
-            "url": "https://files.pythonhosted.org/packages/79/ef/443672058647a36e967058c32e1a95ac469fbedc4bf61464c2c277eb4117/afdko-3.5.1.tar.gz",
-            "sha256": "5cf200b5062da9898c72f3d60f44df3a7c855cdd0fce0bcad500fb80e86be7e1"
+            "url": "https://files.pythonhosted.org/packages/7c/f6/e0b36bb0970e82018a5b508656ee16b6300dc1cc91f1f9b9149d5d47e7fa/afdko-3.6.2.tar.gz",
+            "sha256": "b1a2634848048fb235c25243c4e7148d1eb7919d91af6234cd5b805ac96c8ddd"
         }
     ],
     "cleanup": [
