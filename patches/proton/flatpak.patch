@@ -1,8 +1,8 @@
 diff --git a/proton b/proton
-index bc9b8d4..d3f62d6 100755
+index 399b21a..59aaa0a 100755
 --- a/proton
 +++ b/proton
-@@ -322,61 +322,23 @@ def set_dir_casefold_bit(dir_path):
+@@ -343,20 +343,19 @@ def set_dir_casefold_bit(dir_path):
  class Proton:
      def __init__(self, base_dir):
          self.base_dir = base_dir + "/"
@@ -31,48 +31,7 @@ index bc9b8d4..d3f62d6 100755
  
      def path(self, d):
          return self.base_dir + d
- 
--    def need_tarball_extraction(self):
--        '''Checks if the proton_dist tarball archive must be extracted. Returns true if extraction is needed, false otherwise'''
--        return not os.path.exists(self.dist_dir) or \
--            not os.path.exists(self.path("dist/version")) or \
--            not filecmp.cmp(self.version_file, self.path("dist/version"))
--
--    def extract_tarball(self):
--        with self.dist_lock:
--            if self.need_tarball_extraction():
--                if os.path.exists(self.dist_dir):
--                    shutil.rmtree(self.dist_dir)
--                tar = None
--                for sf in ["", ".xz", ".bz2", ".gz"]:
--                    if os.path.exists(self.path("proton_dist.tar" + sf)):
--                        tar = tarfile.open(self.path("proton_dist.tar" + sf), mode="r:*")
--                        break
--                if not tar:
--                    log("No proton_dist tarball??")
--                    sys.exit(1)
--                tar.extractall(path=self.dist_dir)
--                tar.close()
--                try_copy(self.version_file, self.dist_dir)
--
--    def missing_default_prefix(self):
--        '''Check if the default prefix dir is missing. Returns true if missing, false if present'''
--        return not os.path.isdir(self.default_pfx_dir)
--
--    def make_default_prefix(self):
--        with self.dist_lock:
--            local_env = dict(g_session.env)
--            if self.missing_default_prefix():
--                #make default prefix
--                local_env["WINEPREFIX"] = self.default_pfx_dir
--                local_env["WINEDEBUG"] = "-all"
--                g_session.run_proc([self.wine_bin, "wineboot"], local_env)
--                g_session.run_proc([self.wineserver_bin, "-w"], local_env)
--
- class CompatData:
-     def __init__(self, compatdata):
-         self.base_dir = compatdata + "/"
-@@ -1350,18 +1312,12 @@ if __name__ == "__main__":
+@@ -1377,18 +1376,12 @@ if __name__ == "__main__":
  
      g_proton = Proton(os.path.dirname(sys.argv[0]))
  
