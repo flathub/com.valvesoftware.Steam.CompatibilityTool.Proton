@@ -49,8 +49,8 @@ x-compat-i386-opts: &compat_i386_opts
 x-proton-source: &proton_source
   type: git
   url: https://github.com/ValveSoftware/Proton.git
-  tag: proton-7.0-2
-  commit: 0f50e49b85c30139364131dbf528c1c46ba4305a
+  tag: proton-7.0-3
+  commit: 75231818302bdf746d79ddf76e241363b9e2b5e8
   x-checker-data:
     type: json
     url: https://api.github.com/repos/ValveSoftware/Proton/git/refs/tags/proton-
@@ -134,17 +134,16 @@ modules:
       - INSTALL_PROGRAM_FLAGS=-s
     sources: &wine_sources
       - *proton_source
-      - type: file
-        url: https://raw.githubusercontent.com/KhronosGroup/Vulkan-Docs/v1.2.201/xml/vk.xml
-        sha256: 72d1bed36d137ba157211962d6d59795c6e32b950737544ad4011794bd154d05
-        dest: wine/dlls/winevulkan/
-        dest-filename: vk-1.2.201.xml
       - type: shell
         dest: wine
         commands:
           - autoreconf -fiv
+      - &wine-source-winevulkan
+        type: shell
+        dest: wine
+        commands:
           - tools/make_requests
-          - dlls/winevulkan/make_vulkan
+          - dlls/winevulkan/make_vulkan --xml vk.xml
 
   - name: wine-32bit
     subdir: wine
@@ -263,6 +262,7 @@ modules:
       - install -Dm755 steam.exe.fake ${FLATPAK_LIBDIR_WINE_PE}/steam.exe
     sources: &steam_helper-sources
       - *proton_source
+      - *wine-source-winevulkan
       - type: file
         path: winemaker-configure.sh
         dest: steam_helper
@@ -377,6 +377,7 @@ modules:
       - install -Dm755 wineopenxr.dll.fake ${FLATPAK_LIBDIR_WINE_PE}/wineopenxr.dll
     sources:
       - *proton_source
+      - *wine-source-winevulkan
       - type: file
         path: winemaker-configure.sh
         dest: wineopenxr
@@ -603,8 +604,8 @@ modules:
       - cp -a wine-mono-*/ ${FLATPAK_DEST}/share/wine/mono/
     sources:
       - type: archive
-        url: https://github.com/madewokherd/wine-mono/releases/download/wine-mono-7.1.2/wine-mono-7.1.2-x86.tar.xz
-        sha256: 59f146dde0f0540ca4648fc648e6b16335c71921deaf111b5fe8c3967881661d
+        url: https://github.com/madewokherd/wine-mono/releases/download/wine-mono-7.3.0/wine-mono-7.3.0-x86.tar.xz
+        sha256: 60314f255031b2f4dc49f22eacfcd2b3b8b2b491120d703b4b62cc1fef0f9bdd
         strip-components: 0
 
 
