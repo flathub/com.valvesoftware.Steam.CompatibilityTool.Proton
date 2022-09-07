@@ -473,7 +473,7 @@ modules:
     config-opts: &vkd3d-proton-config-opts
       - --buildtype=release
       - --strip
-      - -Denable_standalone_d3d12=true
+      - -Denable_d3d12=true
     post-install:
       - cd ${FLATPAK_BUILDER_BUILDDIR}; git submodule status -- vkd3d-proton > ${FLATPAK_DEST}/lib/wine/vkd3d-proton/version
     sources: &vkd3d-proton-sources
