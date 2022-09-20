@@ -2,7 +2,7 @@ id: com.valvesoftware.Steam.CompatibilityTool.Proton
 default-branch: stable
 runtime: com.valvesoftware.Steam
 runtime-version: stable
-sdk: org.freedesktop.Sdk//21.08
+sdk: org.freedesktop.Sdk//22.08
 build-extension: true
 appstream-compose: false
 
@@ -20,7 +20,7 @@ build-options:
     CPLUS_INCLUDE_PATH: /app/share/steam/compatibilitytools.d/Proton/include:/app/include
     PKG_CONFIG_PATH: /app/share/steam/compatibilitytools.d/Proton/lib/pkgconfig:/app/lib/pkgconfig:/app/share/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig
     LD_RUN_PATH: /app/share/steam/compatibilitytools.d/Proton/lib
-    PYTHONPATH: /app/share/steam/compatibilitytools.d/Proton/lib/python3.9/site-packages
+    PYTHONPATH: /app/share/steam/compatibilitytools.d/Proton/lib/python3.10/site-packages
     FLATPAK_LIBDIR: /app/share/steam/compatibilitytools.d/Proton/lib
     FLATPAK_LIBDIR_WINE: /app/share/steam/compatibilitytools.d/Proton/lib/wine
     FLATPAK_LIBDIR_WINE_ELF: /app/share/steam/compatibilitytools.d/Proton/lib/wine/x86_64-unix
@@ -49,8 +49,8 @@ x-compat-i386-opts: &compat_i386_opts
 x-proton-source: &proton_source
   type: git
   url: https://github.com/ValveSoftware/Proton.git
-  tag: proton-7.0-3
-  commit: 75231818302bdf746d79ddf76e241363b9e2b5e8
+  tag: proton-7.0-4
+  commit: 4221d9ef07cc38209ff93dbbbca9473581a38255
   x-checker-data:
     type: json
     url: https://api.github.com/repos/ValveSoftware/Proton/git/refs/tags/proton-
@@ -69,6 +69,7 @@ x-proton-source: &proton_source
     timestamp-query: >-
       .committer.date
     is-main-source: true
+    source-id: proton-git-0
 
 cleanup:
   - '*.a'
@@ -472,7 +473,7 @@ modules:
     config-opts: &vkd3d-proton-config-opts
       - --buildtype=release
       - --strip
-      - -Denable_standalone_d3d12=true
+      - -Denable_d3d12=true
     post-install:
       - cd ${FLATPAK_BUILDER_BUILDDIR}; git submodule status -- vkd3d-proton > ${FLATPAK_DEST}/lib/wine/vkd3d-proton/version
     sources: &vkd3d-proton-sources
@@ -607,6 +608,12 @@ modules:
         url: https://github.com/madewokherd/wine-mono/releases/download/wine-mono-7.3.0/wine-mono-7.3.0-x86.tar.xz
         sha256: 60314f255031b2f4dc49f22eacfcd2b3b8b2b491120d703b4b62cc1fef0f9bdd
         strip-components: 0
+        x-checker-data:
+          type: html
+          parent-id: proton-git-0
+          url: https://github.com/ValveSoftware/Proton/raw/$parent_tag/Makefile.in
+          version-pattern: WINEMONO_VER\s+:=\s+(\d+\.\d+\.\d+)
+          url-template: https://github.com/madewokherd/wine-mono/releases/download/wine-mono-$version/wine-mono-$version-x86.tar.xz
 
 
   - name: wine-gecko-bin
@@ -619,11 +626,23 @@ modules:
         done
     sources:
       - type: file
-        url: https://dl.winehq.org/wine/wine-gecko/2.47.2/wine-gecko-2.47.2-x86.tar.xz
-        sha256: 8fab46ea2110b2b0beed414e3ebb4e038a3da04900e7a28492ca3c3ccf9fea94
+        url: https://dl.winehq.org/wine/wine-gecko/2.47.3/wine-gecko-2.47.3-x86.tar.xz
+        sha256: 08d318f3dd6440a8a777cf044ccab039b0d9c8809991d2180eb3c9f903135db3
+        x-checker-data:
+          type: html
+          parent-id: proton-git-0
+          url: https://github.com/ValveSoftware/Proton/raw/$parent_tag/Makefile.in
+          version-pattern: GECKO_VER\s+:=\s+(\d+\.\d+\.\d+)
+          url-template: https://dl.winehq.org/wine/wine-gecko/$version/wine-gecko-$version-x86.tar.xz
       - type: file
-        url: https://dl.winehq.org/wine/wine-gecko/2.47.2/wine-gecko-2.47.2-x86_64.tar.xz
-        sha256: b4476706a4c3f23461da98bed34f355ff623c5d2bb2da1e2fa0c6a310bc33014
+        url: https://dl.winehq.org/wine/wine-gecko/2.47.3/wine-gecko-2.47.3-x86_64.tar.xz
+        sha256: 0beac419c20ee2e68a1227b6e3fa8d59fec0274ed5e82d0da38613184716ef75
+        x-checker-data:
+          type: html
+          parent-id: proton-git-0
+          url: https://github.com/ValveSoftware/Proton/raw/$parent_tag/Makefile.in
+          version-pattern: GECKO_VER\s+:=\s+(\d+\.\d+\.\d+)
+          url-template: https://dl.winehq.org/wine/wine-gecko/$version/wine-gecko-$version-x86_64.tar.xz
 
 
   - name: fonts
