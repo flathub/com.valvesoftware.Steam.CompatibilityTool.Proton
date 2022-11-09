@@ -49,8 +49,8 @@ x-compat-i386-opts: &compat_i386_opts
 x-proton-source: &proton_source
   type: git
   url: https://github.com/ValveSoftware/Proton.git
-  tag: proton-7.0-4
-  commit: 4221d9ef07cc38209ff93dbbbca9473581a38255
+  tag: proton-7.0-5
+  commit: 175bc06a3fdca772f8ad1b4a1d8e42c736f4d0e6
   x-checker-data:
     type: json
     url: https://api.github.com/repos/ValveSoftware/Proton/git/refs/tags/proton-
@@ -605,8 +605,8 @@ modules:
       - cp -a wine-mono-*/ ${FLATPAK_DEST}/share/wine/mono/
     sources:
       - type: archive
-        url: https://github.com/madewokherd/wine-mono/releases/download/wine-mono-7.3.0/wine-mono-7.3.0-x86.tar.xz
-        sha256: 60314f255031b2f4dc49f22eacfcd2b3b8b2b491120d703b4b62cc1fef0f9bdd
+        url: https://github.com/madewokherd/wine-mono/releases/download/wine-mono-7.3.1/wine-mono-7.3.1-x86.tar.xz
+        sha256: 55ca808868599b1d8ad53b222b8cb26fd96fa818c511163e361238025c76e9fe
         strip-components: 0
         x-checker-data:
           type: html
