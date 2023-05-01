@@ -428,6 +428,7 @@ modules:
       - --disable-demos
       - --without-ncurses
     post-install:
+      - mv -v ${FLATPAK_DEST}/lib/vkd3d/{prefix/bin/,}libvkd3d-1.dll
       - mv -v ${FLATPAK_DEST}/lib/vkd3d/{prefix/bin/,}libvkd3d-shader-1.dll
     sources: &vkd3d-sources
       - *proton_source
@@ -454,6 +455,7 @@ modules:
       prefix: /app/share/steam/compatibilitytools.d/Proton/lib32/vkd3d/prefix
     config-opts: *vkd3d-config-opts
     post-install:
+      - mv -v ${FLATPAK_DEST}/lib32/vkd3d/{prefix/bin/,}libvkd3d-1.dll
       - mv -v ${FLATPAK_DEST}/lib32/vkd3d/{prefix/bin/,}libvkd3d-shader-1.dll
     sources: *vkd3d-sources
     cleanup:
