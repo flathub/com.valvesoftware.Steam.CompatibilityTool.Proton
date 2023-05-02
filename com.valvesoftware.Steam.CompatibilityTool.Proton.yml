@@ -423,6 +423,7 @@ modules:
         LD: x86_64-w64-mingw32-ld
       prefix: /app/share/steam/compatibilitytools.d/Proton/lib/vkd3d/prefix
     config-opts: &vkd3d-config-opts
+      - --enable-silent-rules
       - --disable-doxygen-doc
       - --disable-tests
       - --disable-demos
