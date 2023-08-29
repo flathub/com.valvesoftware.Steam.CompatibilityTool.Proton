@@ -25,8 +25,14 @@ build-options:
     FLATPAK_LIBDIR_WINE: /app/share/steam/compatibilitytools.d/Proton/lib/wine
     FLATPAK_LIBDIR_WINE_ELF: /app/share/steam/compatibilitytools.d/Proton/lib/wine/x86_64-unix
     FLATPAK_LIBDIR_WINE_PE: /app/share/steam/compatibilitytools.d/Proton/lib/wine/x86_64-windows
-  cflags: &optflags -O2 -pipe -march=nocona -mtune=core-avx2 -mfpmath=sse -fwrapv
-    -fno-strict-aliasing -mcmodel=small
+  cflags: &optflags >-
+    -O2
+    -pipe
+    -march=nocona
+    -mtune=core-avx2
+    -mfpmath=sse
+    -fwrapv
+    -fno-strict-aliasing
   cflags-override: true
   cxxflags: *optflags
   cxxflags-override: true
@@ -45,6 +51,15 @@ x-compat-i386-opts: &compat_i386_opts
     FLATPAK_LIBDIR_WINE_ELF: /app/share/steam/compatibilitytools.d/Proton/lib32/wine/i386-unix
     FLATPAK_LIBDIR_WINE_PE: &lib32_wine_pe /app/share/steam/compatibilitytools.d/Proton/lib32/wine/i386-windows
   libdir: /app/share/steam/compatibilitytools.d/Proton/lib32
+  cflags: &optflags32 >-
+    -O2
+    -pipe
+    -march=nocona
+    -mtune=core-avx2
+    -mfpmath=sse
+    -fwrapv
+    -fno-strict-aliasing
+    -mstackrealign
 
 x-proton-source: &proton_source
   type: git
@@ -479,7 +494,6 @@ modules:
     config-opts: &vkd3d-proton-config-opts
       - --buildtype=release
       - --strip
-      - -Denable_d3d12=true
     post-install:
       - cd ${FLATPAK_BUILDER_BUILDDIR}; git submodule status -- vkd3d-proton > ${FLATPAK_DEST}/lib/wine/vkd3d-proton/version
     sources: &vkd3d-proton-sources
@@ -524,7 +538,6 @@ modules:
     config-opts: &dxvk_config_opts
       - --buildtype=release
       - --strip
-      - -Denable_tests=false
       - -Denable_dxgi=true
       - -Denable_d3d9=true
       - -Denable_d3d10=true
@@ -733,6 +746,7 @@ modules:
     build-commands:
       - install -Dm755 -t ${FLATPAK_DEST}/ proton filelock.py user_settings.sample.py
       - install -Dm644 -t ${FLATPAK_DEST}/ compatibilitytool.vdf proton_3.7_tracked_files
+      - cat toolmanifest_runtime.vdf | grep -Ev '("use_sessions"|"require_tool_appid"|"compatmanager_layer_name")' > toolmanifest_noruntime.vdf
       - install -Dm644 toolmanifest_noruntime.vdf ${FLATPAK_DEST}/toolmanifest.vdf
       - install -Dm644 dist.LICENSE ${FLATPAK_DEST}/LICENSE
       - |
