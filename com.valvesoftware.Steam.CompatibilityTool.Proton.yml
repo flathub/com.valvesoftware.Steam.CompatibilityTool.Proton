@@ -252,6 +252,7 @@ modules:
       - -I../openvr/headers
       - -lsteam_api
       - -lshlwapi
+      - -lmsi
       - -lole32
       - -ldl
       - --guiexe
