@@ -64,8 +64,9 @@ x-compat-i386-opts: &compat_i386_opts
 x-proton-source: &proton_source
   type: git
   url: https://github.com/ValveSoftware/Proton.git
-  tag: proton-8.0-3
-  commit: 836e4723aa6812781fe1501d142945e7888d000f
+  tag: proton-8.0-4
+  commit: 01c366c0f84417c5614a8d6a70a9c18d32450566
+  disable-submodules: true
   x-checker-data:
     type: json
     url: https://api.github.com/repos/ValveSoftware/Proton/git/refs/tags/proton-
@@ -85,6 +86,135 @@ x-proton-source: &proton_source
       .committer.date
     is-main-source: true
     source-id: proton-git-0
+
+x-wine-source: &wine_source
+  type: git
+  dest: wine
+  url: https://github.com/ValveSoftware/wine
+  commit: 66cd5c1c1f1cae4c76e74c5e82d7b4f1fa4d7550
+
+x-dxvk-source: &dxvk_source
+  type: git
+  dest: dxvk
+  url: https://github.com/ValveSoftware/dxvk
+  commit: 83dc4678df7657821992a927d4aeee510fafa224
+
+x-openvr-source: &openvr_source
+  type: git
+  dest: openvr
+  url: https://github.com/ValveSoftware/openvr
+  commit: 08de3821dfd3aa46f778376680c68f33b9fdcb6c
+
+x-fonts-lf-source: &fonts_lf_source
+  type: git
+  dest: fonts/liberation-fonts
+  url: https://github.com/liberationfonts/liberation-fonts
+  commit: 4b0192046158094654e865245832c66d2104219e
+
+x-gstreamer-source: &gstreamer_source
+  type: git
+  dest: gstreamer
+  url: https://github.com/GStreamer/gstreamer.git
+  commit: bf6ce1d64a0697e7910826147b48f8f658366a5a
+
+x-orc-source: &orc_source
+  type: git
+  dest: gst-orc
+  url: https://github.com/GStreamer/orc.git
+  commit: 7d5bbada3f1c6cf34182abccf47a34d79b83fa97
+
+x-vkd3d-proton-source: &vkd3d_proton_source
+  type: git
+  dest: vkd3d-proton
+  url: https://github.com/HansKristian-Work/vkd3d-proton
+  commit: 88e4f300cc0b5b6f0880c1233d562cf506b546fb
+
+x-oxr-sdk-source: &oxr_sdk_source
+  type: git
+  dest: OpenXR-SDK
+  url: https://github.com/KhronosGroup/OpenXR-SDK
+  commit: 58a00cf85c39ad5ec4dc43a769624e420c06179a
+
+x-dxvk-nvapi-source: &dxvk_nvapi_source
+  type: git
+  dest: dxvk-nvapi
+  url: https://github.com/jp7677/dxvk-nvapi
+  commit: 6c5ed18b4b715e49aa8c4ca21c3737113aa90ec9
+
+x-vkd3d-source: &vkd3d_source
+  type: git
+  dest: vkd3d
+  url: https://github.com/ValveSoftware/vkd3d
+  commit: a16b9dffda9becb1dbcad476c38b78f2144f35b4
+
+x-vulkan-headers-source: &vulkan_headers_source
+  type: git
+  dest: Vulkan-Headers
+  url: https://github.com/KhronosGroup/Vulkan-Headers
+  commit: 8c1c27d5a9b9de8a17f500053bd08c7ca6bba19c
+
+x-spirv-headers-source: &spirv_headers_source
+  type: git
+  dest: SPIRV-Headers
+  url: https://github.com/KhronosGroup/SPIRV-Headers
+  commit: 6cae8216a6ea19ff3f237af01e54378c1ff81fcd
+
+x-vulkan-loader-source: &vulkan_loader_source
+  type: git
+  dest: Vulkan-Loader
+  url: https://github.com/KhronosGroup/Vulkan-Loader
+  commit: 538b2676eaac29565e4f1034a6f8a59ce158213d
+
+x-ffmpeg-source: &ffmpeg_source
+    type: git
+    dest: ffmpeg
+    url: https://github.com/FFmpeg/FFmpeg
+    commit: a77521cd5d27e955b16e8097eecefc779ffdcb6d
+
+x-dav1d-source: &dav1d_source
+    type: git
+    dest: dav1d
+    url: https://github.com/videolan/dav1d.git
+    commit: 8a6f054ef1e0f7886bc6e53e6be97c427154fe85
+
+x-gst-plugins-rs-source: &gst_plugins_rs_source
+    type: git
+    dest: gst-plugins-rs
+    url: https://github.com/sdroege/gst-plugin-rs
+    commit: 0205aa43d6d8c5d0c9d4e4f83e0a3aaa94acef89
+
+x-graphene-source: &graphene_source
+    type: git
+    dest: graphene
+    url: https://github.com/ebassi/graphene
+    commit: 4e2578450809c2099400cf85caf18eafcd7100aa
+
+x-glslang-source: &glslang_source
+    type: git
+    dest: glslang
+    url: https://github.com/KhronosGroup/glslang
+    commit: df7fec2cfa966919172ee83bfcae6c9c9b3f91b8
+
+x-proton-sources: &proton_sources
+  - *proton_source
+  - *wine_source
+  - *dxvk_source
+  - *openvr_source
+  - *fonts_lf_source
+  - *gstreamer_source
+  - *orc_source
+  - *vkd3d_proton_source
+  - *oxr_sdk_source
+  - *dxvk_nvapi_source
+  - *vkd3d_source
+  - *vulkan_headers_source
+  - *spirv_headers_source
+  - *vulkan_loader_source
+  - *ffmpeg_source
+  - *dav1d_source
+  - *gst_plugins_rs_source
+  - *graphene_source
+  - *glslang_source
 
 cleanup:
   - '*.a'
@@ -114,15 +244,13 @@ modules:
   - name: Vulkan-Headers
     subdir: Vulkan-Headers
     buildsystem: cmake-ninja
-    sources:
-      - *proton_source
+    sources: *proton_sources
 
 
   - name: SPIRV-Headers
     subdir: SPIRV-Headers
     buildsystem: cmake-ninja
-    sources:
-      - *proton_source
+    sources: *proton_sources
 
 
   - name: wine
@@ -150,6 +278,24 @@ modules:
       - INSTALL_PROGRAM_FLAGS=-s
     sources: &wine_sources
       - *proton_source
+      - *wine_source
+      - *dxvk_source
+      - *openvr_source
+      - *fonts_lf_source
+      - *gstreamer_source
+      - *orc_source
+      - *vkd3d_proton_source
+      - *oxr_sdk_source
+      - *dxvk_nvapi_source
+      - *vkd3d_source
+      - *vulkan_headers_source
+      - *spirv_headers_source
+      - *vulkan_loader_source
+      - *ffmpeg_source
+      - *dav1d_source
+      - *gst_plugins_rs_source
+      - *graphene_source
+      - *glslang_source
       - type: shell
         dest: wine
         commands:
@@ -208,6 +354,24 @@ modules:
       - install -Dm755 lsteamclient.dll.fake ${FLATPAK_LIBDIR_WINE_PE}/lsteamclient.dll
     sources: &lsteamclient_sources
       - *proton_source
+      - *wine_source
+      - *dxvk_source
+      - *openvr_source
+      - *fonts_lf_source
+      - *gstreamer_source
+      - *orc_source
+      - *vkd3d_proton_source
+      - *oxr_sdk_source
+      - *dxvk_nvapi_source
+      - *vkd3d_source
+      - *vulkan_headers_source
+      - *spirv_headers_source
+      - *vulkan_loader_source
+      - *ffmpeg_source
+      - *dav1d_source
+      - *gst_plugins_rs_source
+      - *graphene_source
+      - *glslang_source
       - type: file
         path: winemaker-configure.sh
         dest: lsteamclient
@@ -280,6 +444,24 @@ modules:
       - install -Dm755 steam.exe.fake ${FLATPAK_LIBDIR_WINE_PE}/steam.exe
     sources: &steam_helper-sources
       - *proton_source
+      - *wine_source
+      - *dxvk_source
+      - *openvr_source
+      - *fonts_lf_source
+      - *gstreamer_source
+      - *orc_source
+      - *vkd3d_proton_source
+      - *oxr_sdk_source
+      - *dxvk_nvapi_source
+      - *vkd3d_source
+      - *vulkan_headers_source
+      - *spirv_headers_source
+      - *vulkan_loader_source
+      - *ffmpeg_source
+      - *dav1d_source
+      - *gst_plugins_rs_source
+      - *graphene_source
+      - *glslang_source
       - *wine-source-winevulkan
       - type: file
         path: winemaker-configure.sh
@@ -312,6 +494,7 @@ modules:
       - install -Dm755 bin/win32/openvr_api.dll ${FLATPAK_DEST}/lib32/wine/dxvk/openvr_api_dxvk.dll
     sources:
       - *proton_source
+      - *openvr_source
 
 
   - name: vrclient
@@ -342,6 +525,24 @@ modules:
       - install -Dm755 vrclient_x64.dll.fake ${FLATPAK_LIBDIR_WINE_PE}/vrclient_x64.dll
     sources: &vrclient_sources
       - *proton_source
+      - *wine_source
+      - *dxvk_source
+      - *openvr_source
+      - *fonts_lf_source
+      - *gstreamer_source
+      - *orc_source
+      - *vkd3d_proton_source
+      - *oxr_sdk_source
+      - *dxvk_nvapi_source
+      - *vkd3d_source
+      - *vulkan_headers_source
+      - *spirv_headers_source
+      - *vulkan_loader_source
+      - *ffmpeg_source
+      - *dav1d_source
+      - *gst_plugins_rs_source
+      - *graphene_source
+      - *glslang_source
       - type: file
         path: winemaker-configure.sh
         dest: vrclient_x64/vrclient_x64
@@ -396,6 +597,24 @@ modules:
       - install -Dm755 wineopenxr.dll.fake ${FLATPAK_LIBDIR_WINE_PE}/wineopenxr.dll
     sources:
       - *proton_source
+      - *wine_source
+      - *dxvk_source
+      - *openvr_source
+      - *fonts_lf_source
+      - *gstreamer_source
+      - *orc_source
+      - *vkd3d_proton_source
+      - *oxr_sdk_source
+      - *dxvk_nvapi_source
+      - *vkd3d_source
+      - *vulkan_headers_source
+      - *spirv_headers_source
+      - *vulkan_loader_source
+      - *ffmpeg_source
+      - *dav1d_source
+      - *gst_plugins_rs_source
+      - *graphene_source
+      - *glslang_source
       - *wine-source-winevulkan
       - type: file
         path: winemaker-configure.sh
@@ -409,8 +628,7 @@ modules:
         config-opts:
           # FIXME: Make a proper patch instead to build with std::filesystem
           - -DBUILD_WITH_STD_FILESYSTEM=OFF
-        sources:
-          - *proton_source
+        sources: *proton_sources
 
 
   - name: glslang
@@ -449,6 +667,24 @@ modules:
       - mv -v ${FLATPAK_DEST}/lib/vkd3d/{prefix/bin/,}libvkd3d-shader-1.dll
     sources: &vkd3d-sources
       - *proton_source
+      - *wine_source
+      - *dxvk_source
+      - *openvr_source
+      - *fonts_lf_source
+      - *gstreamer_source
+      - *orc_source
+      - *vkd3d_proton_source
+      - *oxr_sdk_source
+      - *dxvk_nvapi_source
+      - *vkd3d_source
+      - *vulkan_headers_source
+      - *spirv_headers_source
+      - *vulkan_loader_source
+      - *ffmpeg_source
+      - *dav1d_source
+      - *gst_plugins_rs_source
+      - *graphene_source
+      - *glslang_source
       - type: shell
         commands:
           - install -D $FLATPAK_LIBDIR_WINE_PE/vulkan-1.dll -t wine/dlls/vulkan-1/
@@ -498,6 +734,24 @@ modules:
       - cd ${FLATPAK_BUILDER_BUILDDIR}; git submodule status -- vkd3d-proton > ${FLATPAK_DEST}/lib/wine/vkd3d-proton/version
     sources: &vkd3d-proton-sources
       - *proton_source
+      - *wine_source
+      - *dxvk_source
+      - *openvr_source
+      - *fonts_lf_source
+      - *gstreamer_source
+      - *orc_source
+      - *vkd3d_proton_source
+      - *oxr_sdk_source
+      - *dxvk_nvapi_source
+      - *vkd3d_source
+      - *vulkan_headers_source
+      - *spirv_headers_source
+      - *vulkan_loader_source
+      - *ffmpeg_source
+      - *dav1d_source
+      - *gst_plugins_rs_source
+      - *graphene_source
+      - *glslang_source
       - type: file
         dest: vkd3d-proton
         path: meson-ccache-mingw32.txt
@@ -547,6 +801,24 @@ modules:
       - ln -s version ${FLATPAK_DEST}/lib/wine/dxvk/d9vk_version
     sources: &dxvk_sources
       - *proton_source
+      - *wine_source
+      - *dxvk_source
+      - *openvr_source
+      - *fonts_lf_source
+      - *gstreamer_source
+      - *orc_source
+      - *vkd3d_proton_source
+      - *oxr_sdk_source
+      - *dxvk_nvapi_source
+      - *vkd3d_source
+      - *vulkan_headers_source
+      - *spirv_headers_source
+      - *vulkan_loader_source
+      - *ffmpeg_source
+      - *dav1d_source
+      - *gst_plugins_rs_source
+      - *graphene_source
+      - *glslang_source
       - type: file
         dest: dxvk
         path: meson-ccache-mingw32.txt
@@ -592,6 +864,24 @@ modules:
       - cd ${FLATPAK_BUILDER_BUILDDIR}; git submodule status -- dxvk-nvapi > ${FLATPAK_DEST}/lib/wine/nvapi/version
     sources: &dxvk_nvapi_sources
       - *proton_source
+      - *wine_source
+      - *dxvk_source
+      - *openvr_source
+      - *fonts_lf_source
+      - *gstreamer_source
+      - *orc_source
+      - *vkd3d_proton_source
+      - *oxr_sdk_source
+      - *dxvk_nvapi_source
+      - *vkd3d_source
+      - *vulkan_headers_source
+      - *spirv_headers_source
+      - *vulkan_loader_source
+      - *ffmpeg_source
+      - *dav1d_source
+      - *gst_plugins_rs_source
+      - *graphene_source
+      - *glslang_source
       - type: file
         dest: dxvk-nvapi
         path: meson-ccache-mingw32.txt
@@ -624,8 +914,8 @@ modules:
       - cp -a wine-mono-*/ ${FLATPAK_DEST}/share/wine/mono/
     sources:
       - type: archive
-        url: https://github.com/madewokherd/wine-mono/releases/download/wine-mono-7.4.1/wine-mono-7.4.1-x86.tar.xz
-        sha256: 1286afc67b0a329f5e2d98d9e803ca5906a841ad5486e9b3b1fefa1124b15622
+        url: https://github.com/madewokherd/wine-mono/releases/download/wine-mono-8.0.1/wine-mono-8.0.1-x86.tar.xz
+        sha256: 83f65c9292137a740c4b8ea730b61cee0dbbb82e4eb3607590ba2f4377827464
         strip-components: 0
         x-checker-data:
           type: html
@@ -672,8 +962,7 @@ modules:
           find obj-fonts/
           -xtype f \( -name "*.otf" -o -name "*.ttf" \)
           -ls -exec install -Dm0644 -t ${FLATPAK_DEST}/share/fonts/ {} \;
-    sources:
-      - *proton_source
+    sources: *proton_sources
     modules:
 
       - name: fontforge
@@ -737,8 +1026,7 @@ modules:
       - strace -e trace=none -f wine wineboot
     post-install:
       - install -Dm644 wineopenxr/wineopenxr64.json ${WINEPREFIX}/drive_c/openxr/wineopenxr64.json
-    sources:
-      - *proton_source
+    sources: *proton_sources
 
 
   - name: proton
@@ -772,6 +1060,24 @@ modules:
         ${FLATPAK_ID}
     sources:
       - *proton_source
+      - *wine_source
+      - *dxvk_source
+      - *openvr_source
+      - *fonts_lf_source
+      - *gstreamer_source
+      - *orc_source
+      - *vkd3d_proton_source
+      - *oxr_sdk_source
+      - *dxvk_nvapi_source
+      - *vkd3d_source
+      - *vulkan_headers_source
+      - *spirv_headers_source
+      - *vulkan_loader_source
+      - *ffmpeg_source
+      - *dav1d_source
+      - *gst_plugins_rs_source
+      - *graphene_source
+      - *glslang_source
       - type: patch
         paths:
           - patches/proton/flatpak.patch
